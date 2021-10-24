@@ -26,14 +26,14 @@ public class GenericClassService {
 		return repo.findById(id);
 	}
 	
-	public GenericClass save(GenericClass crud) {
-		return repo.save(crud);
+	public GenericClass save(GenericClass obj) {
+		return repo.save(obj);
 	}
 	
-	public GenericClass update(GenericClass crudUpdate, Integer id) throws Exception {
+	public GenericClass update(GenericClass objUpdate, Integer id) throws Exception {
 		GenericClass genericClass = repo.findById(id).orElseThrow(() -> new Exception("genericClass not found: " + id));
-		genericClass.setId(crudUpdate.getId());
-		genericClass.setName(crudUpdate.getName());
+		genericClass.setId(objUpdate.getId());
+		genericClass.setName(objUpdate.getName());
 		return repo.save(genericClass);
 	}
 	
