@@ -2,10 +2,12 @@ package com.practice.crud.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,6 +50,12 @@ public class GenericClassController {
 	public ResponseEntity<GenericClass> update(@RequestBody GenericClass objUpdate, @PathVariable Integer id) throws Exception {
 		GenericClass obj = service.update(id, objUpdate);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Map<String, Boolean>> delete(@PathVariable Integer id) throws Exception {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }

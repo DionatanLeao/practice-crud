@@ -43,7 +43,7 @@ public class GenericClassService {
 	}
 	
 	public Map<String, Boolean> delete(Integer id) throws Exception {
-		GenericClass genericClass = repo.findById(id).orElseThrow(() -> new Exception("Crud not found: " + id));
+		GenericClass genericClass = repo.findById(id).orElseThrow(() -> new EntityNotFoundException("Not found: " + id));
 		repo.delete(genericClass);
 			
 		Map<String, Boolean> response = new HashMap<>();
