@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +41,12 @@ public class GenericClassController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Optional<GenericClass>> findById(@PathVariable Integer id) {
 		Optional<GenericClass> obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<GenericClass> update(@RequestBody GenericClass objUpdate, @PathVariable Integer id) throws Exception {
+		GenericClass obj = service.update(id, objUpdate);
 		return ResponseEntity.ok().body(obj);
 	}
 

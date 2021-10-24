@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +32,14 @@ public class GenericClassService {
 		return repo.save(obj);
 	}
 	
-	public GenericClass update(GenericClass objUpdate, Integer id) throws Exception {
-		GenericClass genericClass = repo.findById(id).orElseThrow(() -> new Exception("genericClass not found: " + id));
-		genericClass.setId(objUpdate.getId());
-		genericClass.setName(objUpdate.getName());
-		return repo.save(genericClass);
+	public GenericClass update(Integer id, GenericClass objUpdate) {		
+		GenericClass obj = repo.findById(id).orElseThrow(() -> new EntityNotFoundException("Not found: " + id));
+		updateData(obj, objUpdate);
+		return repo.save(obj);			
+	}
+
+	private void updateData(GenericClass obj, GenericClass objUpdate) {
+		obj.setName(objUpdate.getName());
 	}
 	
 	public Map<String, Boolean> delete(Integer id) throws Exception {
